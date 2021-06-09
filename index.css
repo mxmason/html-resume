@@ -1,0 +1,328 @@
+/* ==========================================================================
+	 # SETTINGS
+		Variables used throughout the stylesheet
+	 ========================================================================== */
+
+:root {
+  --color-black: hsl(0, 0%, 0%);
+  --color-onyx: hsl(0, 0%, 10%);
+  --color-storm: hsl(0, 0%, 40%);
+  --color-white: hsl(255, 100%, 100%);
+  --color-blue: hsl(208, 72%, 45%);
+
+  --fonts__sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  --fonts__serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman,
+    Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol;
+  --fonts__mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
+    monospace;
+
+  --theme-body-color: var(--color-onyx);
+  --theme-background-color: var(--color-white);
+  --theme-main-accent: var(--color-blue);
+
+  --theme-max-line-length: 60ch;
+
+  --o-container-max-width: 95%;
+
+	  /**
+	 * Set root font size to base 10, so REM units
+	 * are easier to reason about.
+	 * 
+	 * 1rem = 10px
+	 */
+	 --root-font-size: 62.5%;
+
+  --o-grid-row-gap: 4rem;
+  --o-grid-column-gap: 3rem;
+  --o-stack-margin: 1rem;
+
+  --body-font-size: 1.6rem;
+  --body-line-height: 1.4;
+  --body-outer-margin: 4rem;
+}
+
+/* Letter-size paper */
+@media print and (min-height: 125vw) and (max-height: 135vw) {
+  :root {
+    --o-container-max-width: 100%;
+    --o-grid-row-gap: 2rem;
+    --o-stack-margin: 0.72rem;
+
+    --body-font-size: 1.4rem;
+    --body-outer-margin: 0;
+  }
+}
+
+/* ==========================================================================
+	 # GENERICS
+		Overrides for base HTML elements
+	 ========================================================================== */
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+	 # ELEMENTS
+		Overrides for base HTML elements
+	 ========================================================================== */
+
+html {
+  font-size: var(--root-font-size);
+}
+
+body {
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+  font-family: var(--fonts__sans-serif);
+  color: var(--theme-body-color);
+
+  margin-top: var(--body-outer-margin);
+  margin-bottom: var(--body-outer-margin);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--fonts__serif);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+p,
+span {
+  max-width: var(--theme-max-line-length);
+
+
+}
+
+ul {
+  padding-left: 2rem;
+}
+
+a {
+  color: var(--theme-main-accent);
+}
+
+a:focus {
+  outline: 0.3rem solid transparent;
+  color: var(--theme-background-color);
+  background-color: var(--theme-main-accent);
+
+  box-shadow: 0 0 0 0.3rem var(--theme-main-accent);
+}
+
+svg {
+	vertical-align: middle;
+	margin-top: 1px;
+}
+
+/* ==========================================================================
+	 # OBJECTS
+		Styles that provide layout and structure to the page.
+	 ========================================================================== */
+
+.o-container {
+  width: 100rem;
+  max-width: var(--o-container-max-width);
+  margin: 0 auto;
+}
+
+.o-grid {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'main'
+    'aside';
+  column-gap: var(--o-grid-column-gap);
+  row-gap: var(--o-grid-row-gap);
+}
+
+@media print, (min-width: 760px) {
+  .o-grid {
+    grid-template-areas:
+      'header header'
+      'main aside';
+  }
+}
+
+.o-grid__header {
+  grid-area: header;
+}
+
+.o-grid__main {
+  grid-area: main;
+}
+
+.o-grid__aside {
+  grid-area: aside;
+}
+
+.o-stack > * + * {
+  margin-top: var(--o-stack-margin);
+}
+
+.o-stack--xs > * + * {
+  margin-top: calc(var(--o-stack-margin) * 0.5);
+}
+
+.o-stack--md > * + * {
+  margin-top: calc(var(--o-stack-margin) * 2);
+}
+
+.o-stack--large > * + * {
+  margin-top: calc(var(--o-stack-margin) * 3);
+}
+
+.o-stack--xl > * + * {
+  margin-top: calc(var(--o-stack-margin) * 4);
+}
+
+.o-list--bare[role='list'] {
+  padding: 0;
+  list-style: none;
+}
+
+.o-list--bare[role='list'] > li[role='listitem'] + li[role='listitem'] {
+  margin-top: 0.75rem;
+}
+
+/* ==========================================================================
+	 # COMPONENTS
+		Reusable pieces of UI.
+	 ========================================================================== */
+
+.c-header {
+  display: grid;
+  grid-template-areas:
+    'header__intro'
+    'header__contact';
+  column-gap: var(--o-grid-column-gap);
+}
+
+@media print, (min-width: 760px) {
+  .c-header {
+    grid-template-areas: 'header__intro header__contact';
+  }
+}
+
+.c-header__intro {
+  grid-area: header__intro;
+}
+
+.c-header__contact {
+  grid-area: header__contact;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.c-contact-link {
+  line-height: 1.5;
+	text-decoration: none;
+}
+
+	.c-contact-link__text {
+		text-decoration: underline;
+	}
+
+.c-main-title {
+  margin-bottom: 1rem;
+}
+
+.c-main-title__heading {
+  font-size: 2em;
+  line-height: 1
+}
+
+.c-main-title__subheading {
+	display: inline-block;
+  font-size: 1.3em;
+  margin-top: 0.2rem;
+
+}
+
+.c-allcaps-heading {
+  font-size: 1.05em;
+  font-family: var(--fonts__sans-serif);
+
+  color: var(--theme-main-accent);
+  text-transform: uppercase;
+}
+
+.c-allcaps-heading + * {
+  margin-top: 0.5em;
+}
+
+@media print, (min-width: 760px) {
+  .c-contact-link {
+    line-height: 1.6;
+    margin-top: 0.1em;
+  }
+}
+
+.c-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.c-feature__subheading {
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--color-storm);
+  margin: 0;
+}
+
+.c-feature__link {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 0.3rem;
+}
+
+/* ==========================================================================
+	 # UTILITIES
+		Helper classes whose styles are important and override everything else
+	 ========================================================================== */
+
+.u-visibly-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.u-visibly-hidden + * {
+  margin-top: unset;
+}
+
+@media print, (min-width: 760px) {
+  .u-grid--two-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .u-grid--large-main {
+    grid-template-columns: 5fr 2.5fr;
+  }
+}
